@@ -3,3 +3,4 @@ assets/*.mp4
 assets/*.wav
 renders/
 .hyperframes/
+assets/*.mp3

@@ -240,8 +240,8 @@
         ></video>
       </div>
       <audio
-        id="music"
-        src="assets/music.wav"
+        id="mix"
+        src="assets/mix.wav"
         data-start="0"
         data-duration="24"
         data-track-index="1"
@@ -454,7 +454,8 @@
       );
       tl.to("#c6", { scale: 1.4, opacity: 0, duration: 0.2, ease: OUT }, 15.8);
 
-      // 7) end card — clean logo beat, then the CTA panel takes over on the downbeat
+      // 7) end card — clean logo beat, then the CTA panel takes over on the downbeat;
+      // each item lands on its VO line ("Chama no WhatsApp" 17.6, "link na bio" 18.85, address 20.3)
       tl.fromTo("#panel", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 17.5);
       tl.fromTo(
         "#cta-lead",
@@ -468,12 +469,12 @@
         { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.8)" },
         18.0,
       );
-      tl.fromTo("#bio", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: IN }, 18.5);
+      tl.fromTo("#bio", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: IN }, 18.8);
       tl.fromTo(
         "#addr",
         { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.4, ease: IN },
-        19.0,
+        20.25,
       );
       // gentle heartbeat on the WhatsApp pill (on the 1s grid)
       tl.fromTo(
