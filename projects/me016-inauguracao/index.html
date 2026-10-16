@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>ME016 Inauguração</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Anton";
+        src: url("assets/fonts/anton-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("assets/fonts/BarlowCondensed-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("assets/fonts/BarlowCondensed-ExtraBold.woff2") format("woff2");
+        font-weight: 800;
+      }
+      :root {
+        --blue: #1b3fb4;
+        --blue-deep: #0f2780;
+        --yellow: #ffc81e;
+        --ink: #0b1230;
+        --wa: #0f8a43;
+      }
+      body {
+        margin: 0;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+      }
+      #cam {
+        position: absolute;
+        inset: 0;
+      }
+      #base {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      /* legibility scrim behind the text band */
+      /* legibility band behind the mid-frame text (Reels-ad safe zone: y 270–1248) */
+      #scrim {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 560px;
+        height: 760px;
+        background: linear-gradient(
+          to bottom,
+          rgba(5, 10, 30, 0) 0%,
+          rgba(5, 10, 30, 0.4) 30%,
+          rgba(5, 10, 30, 0.4) 70%,
+          rgba(5, 10, 30, 0) 100%
+        );
+        pointer-events: none;
+      }
+      #panel {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(15, 39, 128, 0.55) 0%,
+          rgba(12, 30, 100, 0.86) 30%,
+          rgba(12, 30, 100, 0.86) 70%,
+          rgba(15, 39, 128, 0.55) 100%
+        );
+        opacity: 0;
+      }
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        opacity: 0;
+      }
+
+      /* ---- sticker headline cards ---- */
+      .card {
+        position: absolute;
+        left: 72px;
+        right: 150px;
+        top: 780px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .tag {
+        display: block;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 44px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--ink);
+        background: var(--yellow);
+        padding: 6px 18px 4px;
+        transform-origin: left center;
+      }
+      .bar {
+        display: block;
+        position: relative;
+        transform-origin: left center;
+      }
+      .bar span {
+        display: block;
+        font-family: "Anton", sans-serif;
+        font-size: 128px;
+        line-height: 1.08;
+        text-transform: uppercase;
+        padding: 6px 30px 10px;
+        white-space: nowrap;
+      }
+      .bar.b span {
+        background: var(--blue);
+        color: #fff;
+        box-shadow: 10px 10px 0 var(--blue-deep);
+      }
+      .bar.y span {
+        background: var(--yellow);
+        color: var(--ink);
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.35);
+      }
+      .bar.xl span {
+        font-size: 176px;
+      }
+      .bolt {
+        position: absolute;
+        width: 120px;
+        height: 170px;
+        right: -96px;
+        top: -40px;
+      }
+
+      /* ---- end card ---- */
+      #addr {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--ink);
+        padding: 16px 30px 14px 20px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 60px;
+        box-shadow: 8px 8px 0 var(--yellow);
+      }
+      #addr svg {
+        width: 54px;
+        height: 54px;
+      }
+      #cta {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 470px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 34px;
+      }
+      #cta .lead {
+        font-family: "Anton", sans-serif;
+        font-size: 104px;
+        line-height: 1;
+        color: #fff;
+        text-transform: uppercase;
+        text-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+      }
+      #wa {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        background: var(--wa);
+        color: #fff;
+        padding: 18px 40px 18px 26px;
+        border-radius: 999px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      }
+      #wa svg {
+        width: 96px;
+        height: 96px;
+      }
+      #wa span {
+        font-family: "Anton", sans-serif;
+        font-size: 112px;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+      #bio {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 58px;
+        color: var(--ink);
+        background: var(--yellow);
+        padding: 10px 26px 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      #bio svg {
+        width: 44px;
+        height: 44px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1080"
+      data-height="1920"
+      data-duration="24"
+    >
+      <div id="cam">
+        <video
+          id="base"
+          class="clip"
+          src="assets/base.mp4"
+          data-start="0"
+          data-duration="24"
+          data-track-index="0"
+          muted
+          playsinline
+        ></video>
+      </div>
+      <audio
+        id="music"
+        src="assets/music.wav"
+        data-start="0"
+        data-duration="24"
+        data-track-index="1"
+      ></audio>
+
+      <div id="scrim"></div>
+
+      <!-- 0.0–2.0  hook -->
+      <div id="c1" class="card clip" data-start="0" data-duration="2" data-track-index="2">
+        <span class="tag" id="c1-tag">ME016 · Mobilidade Elétrica</span>
+        <div class="bar y xl" id="c1-a"><span>Inaugurou!</span></div>
+      </div>
+
+      <!-- 2.0–4.0 -->
+      <div id="c2" class="card clip" data-start="2" data-duration="2" data-track-index="2">
+        <div class="bar b" id="c2-a"><span>Motos elétricas</span></div>
+        <div class="bar y" id="c2-b"><span>Multimarcas</span></div>
+      </div>
+
+      <!-- 4.0–6.0 -->
+      <div id="c3" class="card clip" data-start="4" data-duration="2" data-track-index="2">
+        <div class="bar y xl" id="c3-a">
+          <span>Econômicas</span>
+          <svg class="bolt" id="c3-bolt" viewBox="0 0 60 85" aria-hidden="true">
+            <path
+              d="M36 0 L4 48 H26 L18 85 L56 32 H33 Z"
+              fill="#ffc81e"
+              stroke="#0b1230"
+              stroke-width="4"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- 6.0–9.0 -->
+      <div id="c4" class="card clip" data-start="6" data-duration="3" data-track-index="2">
+        <div class="bar b" id="c4-a"><span>Adeus,</span></div>
+        <div class="bar y xl" id="c4-b"><span>Gasolina</span></div>
+      </div>
+
+      <!-- 9.0–12.0 -->
+      <div id="c5" class="card clip" data-start="9" data-duration="3" data-track-index="2">
+        <div class="bar b" id="c5-a"><span>Vários modelos</span></div>
+        <div class="bar y" id="c5-b"><span>e cores</span></div>
+      </div>
+
+      <!-- 12.0–16.0 -->
+      <div id="c6" class="card clip" data-start="12" data-duration="4" data-track-index="2">
+        <div class="bar b" id="c6-a"><span>Venha</span></div>
+        <div class="bar y xl" id="c6-b"><span>Conhecer!</span></div>
+      </div>
+
+      <!-- 16.0–24.0  end card -->
+
+      <div id="panel" class="clip" data-start="16" data-duration="8" data-track-index="3"></div>
+
+      <div id="cta" class="clip" data-start="16" data-duration="8" data-track-index="2">
+        <div class="lead" id="cta-lead">Chame no</div>
+        <div id="wa">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path
+              fill="#fff"
+              d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3.3 29l6.5-1.7c1.9 1 4 1.6 6.2 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.5c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.7-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.8 0-5.9 4.9-10.7 10.9-10.7s10.9 4.8 10.9 10.7S22 26.5 16 26.5zm6-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.6 4.9 2.8 1.1 3.3.9 3.9.8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"
+            />
+          </svg>
+          <span>WhatsApp</span>
+        </div>
+        <div id="bio">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 4l-7 7h4.5v9h5v-9H19z" fill="#0b1230" />
+          </svg>
+          <span>Link na bio do Instagram</span>
+        </div>
+        <div id="addr">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"
+              fill="#1b3fb4"
+            />
+          </svg>
+          <span>Av. Luzitana, 552</span>
+        </div>
+      </div>
+
+      <div id="flash"></div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const IN = "power4.out";
+      const OUT = "power3.in";
+
+      // --- beat punch: a short push-in on every cut (0.5s grid, drop at 2.0s)
+      const cuts = [2, 3, 4, 5, 6, 7, 8, 9, 10.5, 12, 13, 14, 15];
+      cuts.forEach((t) => {
+        tl.fromTo(
+          "#cam",
+          { scale: 1.07 },
+          { scale: 1, duration: 0.42, ease: "power3.out", immediateRender: false },
+          t,
+        );
+      });
+      // slow settle on the opener and the end card
+      tl.fromTo("#cam", { scale: 1.12 }, { scale: 1.02, duration: 2, ease: "none" }, 0);
+      tl.fromTo(
+        "#cam",
+        { scale: 1 },
+        { scale: 1.05, duration: 8, ease: "none", immediateRender: false },
+        16,
+      );
+
+      // --- flashes: the drop and the hand-off to the end card
+      tl.fromTo(
+        "#flash",
+        { opacity: 0.85 },
+        { opacity: 0, duration: 0.35, ease: "power2.out", immediateRender: false },
+        2,
+      );
+      tl.fromTo(
+        "#flash",
+        { opacity: 0.6 },
+        { opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false },
+        16,
+      );
+
+      // helper: sticker bar wipes in from the left, text rides in behind it
+      function barIn(sel, at) {
+        tl.fromTo(
+          sel,
+          { scaleX: 0, skewX: -8 },
+          { scaleX: 1, skewX: -8, duration: 0.32, ease: IN },
+          at,
+        );
+        tl.fromTo(
+          `${sel} span`,
+          { xPercent: -12, opacity: 0 },
+          { xPercent: 0, opacity: 1, duration: 0.3, ease: IN },
+          at + 0.06,
+        );
+      }
+      function cardOut(sel, at) {
+        tl.to(sel, { x: -1100, duration: 0.22, ease: OUT }, at - 0.22);
+      }
+
+      // 1) hook — riser: tag first, then the big word lands on beat 1.0
+      tl.fromTo(
+        "#c1-tag",
+        { scaleX: 0, skewX: -8 },
+        { scaleX: 1, skewX: -8, duration: 0.3, ease: IN },
+        0.1,
+      );
+      tl.fromTo(
+        "#c1-a",
+        { scale: 2.4, skewX: -8, opacity: 0 },
+        { scale: 1, skewX: -8, opacity: 1, duration: 0.38, ease: "back.out(1.6)" },
+        0.5,
+      );
+      tl.fromTo(
+        "#c1-a",
+        { rotation: 0 },
+        { rotation: -2, duration: 0.12, yoyo: true, repeat: 3, ease: "sine.inOut" },
+        1.0,
+      );
+      tl.to("#c1", { scale: 1.6, opacity: 0, duration: 0.18, ease: OUT }, 1.87);
+
+      // 2) motos elétricas / multimarcas
+      barIn("#c2-a", 2.0);
+      barIn("#c2-b", 2.5);
+      cardOut("#c2", 4.0);
+
+      // 3) econômicas + bolt
+      barIn("#c3-a", 4.0);
+      tl.fromTo(
+        "#c3-bolt",
+        { scale: 0, rotation: -40 },
+        { scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.2)" },
+        4.5,
+      );
+      tl.fromTo(
+        "#c3-bolt",
+        { y: 0 },
+        { y: -10, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut" },
+        5.0,
+      );
+      cardOut("#c3", 6.0);
+
+      // 4) adeus, gasolina
+      barIn("#c4-a", 6.0);
+      tl.fromTo(
+        "#c4-b",
+        { scale: 1.8, skewX: -8, opacity: 0 },
+        { scale: 1, skewX: -8, opacity: 1, duration: 0.34, ease: "back.out(1.5)" },
+        6.5,
+      );
+      cardOut("#c4", 9.0);
+
+      // 5) vários modelos e cores
+      barIn("#c5-a", 9.0);
+      barIn("#c5-b", 9.5);
+      cardOut("#c5", 12.0);
+
+      // 6) venha conhecer
+      barIn("#c6-a", 12.0);
+      tl.fromTo(
+        "#c6-b",
+        { scale: 1.8, skewX: -8, opacity: 0 },
+        { scale: 1, skewX: -8, opacity: 1, duration: 0.34, ease: "back.out(1.5)" },
+        12.5,
+      );
+      tl.to("#c6", { scale: 1.4, opacity: 0, duration: 0.2, ease: OUT }, 15.8);
+
+      // 7) end card — clean logo beat, then the CTA panel takes over on the downbeat
+      tl.fromTo("#panel", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 17.5);
+      tl.fromTo(
+        "#cta-lead",
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: IN },
+        17.6,
+      );
+      tl.fromTo(
+        "#wa",
+        { scale: 0.4, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.8)" },
+        18.0,
+      );
+      tl.fromTo("#bio", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: IN }, 18.5);
+      tl.fromTo(
+        "#addr",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: IN },
+        19.0,
+      );
+      // gentle heartbeat on the WhatsApp pill (on the 1s grid)
+      tl.fromTo(
+        "#wa",
+        { scale: 1 },
+        {
+          scale: 1.06,
+          duration: 0.18,
+          yoyo: true,
+          repeat: 7,
+          ease: "sine.inOut",
+          immediateRender: false,
+        },
+        19.5,
+      );
+      tl.fromTo(
+        "#bio svg",
+        { y: 0 },
+        { y: -10, duration: 0.25, yoyo: true, repeat: 9, ease: "sine.inOut" },
+        19.5,
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
