@@ -129,6 +129,8 @@ packages/studio/data/
 !.claude/skills/paper-bench-explainer
 !.claude/skills/duo-dialogue-listicle
 !.claude/skills/design-toolkit
+!.claude/skills/taste-skill
+!.claude/skills/web-design-guidelines
 
 .agents/*
 !.agents/skills
@@ -143,6 +145,8 @@ packages/studio/data/
 !.agents/skills/paper-bench-explainer
 !.agents/skills/duo-dialogue-listicle
 !.agents/skills/design-toolkit
+!.agents/skills/taste-skill
+!.agents/skills/web-design-guidelines
 skills-lock.json
 
 # Skills from other PRs (not managed here)

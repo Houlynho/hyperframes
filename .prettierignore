@@ -46,3 +46,9 @@ skills/talking-head-recut/references/frames/polaroid.html
 # explicitly (not registry/examples/**/*.html) so hand-authored example HTML still
 # gets formatted.
 registry/examples/warm-grain/compositions/captions.html
+
+# vendored third-party agent skills (taste-skill, web-design-guidelines) — keep byte-identical to upstream
+.claude/skills/taste-skill/
+.agents/skills/taste-skill/
+.claude/skills/web-design-guidelines/
+.agents/skills/web-design-guidelines/
