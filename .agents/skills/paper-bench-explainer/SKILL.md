@@ -12,9 +12,10 @@ local AI on an old PC, 9:16, ~2:12). The look reads as a **maker's bench**: real
 craft textures (cutting mat, paper, tape, pen) host crisp digital UI cards. That
 contrast between analog and digital is the whole identity. Keep it.
 
-This is a **style layer**, not a workflow. Route the job through the normal workflow
-(`/faceless-explainer` for no-footage explainers, `/general-video` when the user
-supplies a talking-head hook or B-roll) and apply this skill's tokens, components and
+This is a **style layer**, not a workflow. Route the job through `/hyperframes`,
+the entry skill (older installs split this into `/faceless-explainer` for
+no-footage explainers and `/general-video` when the user supplies a talking-head
+hook or B-roll), and apply this skill's tokens, components and
 beat grammar on top. Motion law still comes from `motion-doctrine` / `cut-the-curve`.
 The cursor technique comes from `oversized-cursor`; this style only swaps the skin.
 
@@ -140,7 +141,7 @@ has proven search demand. Offer the rest as a part 2.
 ## 6. Sound design map
 
 Narration is the spine: clean voiceover, no room noise. The bed is a lo-fi /
-chillhop instrumental, ducked under the voice (see `/hyperframes-audio` carve). Pull
+chillhop instrumental, ducked under the voice (the voiceover carve in `/media-use`, or `/hyperframes-audio` in older installs). Pull
 the SFX through `/media-use`. Every visual event has one sound:
 
 | Event               | SFX                                                          |
@@ -159,7 +160,7 @@ competing.
 
 ## 7. Build checklist
 
-- [ ] Workflow chosen (`/faceless-explainer` or `/general-video`), and this skill
+- [ ] Job routed through `/hyperframes`, and this skill
       applied as the style layer
 - [ ] User confirmed the bench variant (reference green or own palette) and whether a
       hook clip exists
