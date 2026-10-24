@@ -128,6 +128,7 @@ packages/studio/data/
 !.claude/skills/oversized-cursor
 !.claude/skills/paper-bench-explainer
 !.claude/skills/duo-dialogue-listicle
+!.claude/skills/design-toolkit
 
 .agents/*
 !.agents/skills
@@ -141,6 +142,7 @@ packages/studio/data/
 !.agents/skills/oversized-cursor
 !.agents/skills/paper-bench-explainer
 !.agents/skills/duo-dialogue-listicle
+!.agents/skills/design-toolkit
 skills-lock.json
 
 # Skills from other PRs (not managed here)
