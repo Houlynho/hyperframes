@@ -126,6 +126,12 @@ packages/studio/data/
 !.claude/skills/seam-craft
 !.claude/skills/captions-overlay
 !.claude/skills/oversized-cursor
+!.claude/skills/paper-bench-explainer
+!.claude/skills/duo-dialogue-listicle
+!.claude/skills/design-toolkit
+!.claude/skills/taste-skill
+!.claude/skills/web-design-guidelines
+!.claude/skills/image-to-code
 
 .agents/*
 !.agents/skills
@@ -137,6 +143,12 @@ packages/studio/data/
 !.agents/skills/seam-craft
 !.agents/skills/captions-overlay
 !.agents/skills/oversized-cursor
+!.agents/skills/paper-bench-explainer
+!.agents/skills/duo-dialogue-listicle
+!.agents/skills/design-toolkit
+!.agents/skills/taste-skill
+!.agents/skills/web-design-guidelines
+!.agents/skills/image-to-code
 skills-lock.json
 
 # Skills from other PRs (not managed here)

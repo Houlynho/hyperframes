@@ -44,6 +44,23 @@ Atomic capabilities the creation workflows compose against — pull one when you
 - `/hyperframes-registry` — search, install and wire registry blocks and components into compositions via `hyperframes catalog` / `hyperframes add`. Load it before hand-building any named look, effect, treatment or transition: the search ranks the whole hosted registry with nothing installed. Covers authoring a new block or component to contribute upstream.
 - `/figma` — import Figma assets, tokens, components, and storyboard sections → reconstructed motion (frames read as states, not slides) (REST/CLI) plus Motion animations (MCP) and shaders (MCP source / native export) into a composition.
 
+### Owner's skills (this fork): use by default
+
+The repo owner asked for these to be used in every session from now on. They live
+in `.claude/skills/` (mirrored in `.agents/skills/`).
+
+- **Any video that explains or demonstrates** (tutorial, step-by-step, how it
+  works): apply `paper-bench-explainer` as the style layer.
+- **Any fast "top N" / tips / tools reel, or a two-character dialogue**: apply
+  `duo-dialogue-listicle` as the format layer.
+- **Any UI, site, landing page or app front end** (including pages inside a video):
+  follow `design-toolkit`. Build with `taste-skill`. Use `image-to-code` when there
+  is a reference image. Audit with `web-design-guidelines` before calling it done.
+
+`taste-skill`, `web-design-guidelines` and `image-to-code` are vendored third-party
+skills (MIT). Keep them byte-identical to upstream: no local edits, and they are
+excluded from oxlint / oxfmt.
+
 ## Skill catalog maintenance
 
 When adding a new skill, or substantially renaming / repurposing an existing one, update all agent-facing discoverability surfaces in lockstep:
