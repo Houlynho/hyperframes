@@ -126,6 +126,7 @@ packages/studio/data/
 !.claude/skills/seam-craft
 !.claude/skills/captions-overlay
 !.claude/skills/oversized-cursor
+!.claude/skills/paper-bench-explainer
 
 .agents/*
 !.agents/skills
@@ -137,6 +138,7 @@ packages/studio/data/
 !.agents/skills/seam-craft
 !.agents/skills/captions-overlay
 !.agents/skills/oversized-cursor
+!.agents/skills/paper-bench-explainer
 skills-lock.json
 
 # Skills from other PRs (not managed here)
