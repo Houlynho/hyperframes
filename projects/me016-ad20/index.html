@@ -1,0 +1,1198 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>ME016 Anúncio 20s</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Anton";
+        src: url("assets/fonts/anton-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("assets/fonts/BarlowCondensed-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("assets/fonts/BarlowCondensed-ExtraBold.woff2") format("woff2");
+        font-weight: 800;
+      }
+      :root {
+        --blue: #1b3fb4;
+        --blue-deep: #0f2780;
+        --navy: #0b1230;
+        --yellow: #ffc81e;
+        --ink: #0b1230;
+        --wa: #0f8a43;
+        --red: #e5322d;
+        --green: #128a3e;
+      }
+      body {
+        margin: 0;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--navy);
+      }
+      #cam {
+        position: absolute;
+        inset: 0;
+      }
+      #base {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .scrim {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 560px;
+        height: 760px;
+        background: linear-gradient(
+          to bottom,
+          rgba(5, 10, 30, 0) 0%,
+          rgba(5, 10, 30, 0.38) 30%,
+          rgba(5, 10, 30, 0.38) 70%,
+          rgba(5, 10, 30, 0) 100%
+        );
+      }
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        opacity: 0;
+      }
+
+      /* ---------- type system: skewed brand stickers ---------- */
+      .stack {
+        position: absolute;
+        left: 72px;
+        right: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .stack.center {
+        left: 72px;
+        right: 72px;
+        align-items: center;
+      }
+      .bar {
+        display: block;
+        transform-origin: left center;
+      }
+      .center .bar {
+        transform-origin: center center;
+      }
+      .bar span {
+        display: block;
+        font-family: "Anton", sans-serif;
+        font-size: 120px;
+        line-height: 1.08;
+        text-transform: uppercase;
+        padding: 6px 30px 10px;
+        white-space: nowrap;
+      }
+      .bar.b span {
+        background: var(--blue);
+        color: #fff;
+        box-shadow: 10px 10px 0 var(--blue-deep);
+      }
+      .bar.y span {
+        background: var(--yellow);
+        color: var(--ink);
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.35);
+      }
+      .bar.w span {
+        background: #fff;
+        color: var(--ink);
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.3);
+      }
+      .bar.xl span {
+        font-size: 168px;
+      }
+      .bar.sm span {
+        font-size: 84px;
+      }
+      .tag {
+        display: block;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 46px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--ink);
+        background: var(--yellow);
+        padding: 6px 20px 4px;
+      }
+      .big {
+        font-family: "Anton", sans-serif;
+        color: #fff;
+        text-transform: uppercase;
+        line-height: 1;
+        text-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+      }
+
+      /* ---------- scene 1: gas pump + crying wallet ---------- */
+      #gag1 {
+        background: radial-gradient(120% 80% at 50% 45%, #1b2f7a 0%, #0b1230 70%);
+      }
+      #g1-title {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 300px;
+        height: 260px;
+      }
+      #g1-q1,
+      #g1-q2,
+      #g1-q3 {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        text-align: center;
+        font-size: 128px;
+      }
+      #g1-q3 {
+        color: var(--yellow);
+        font-size: 170px;
+      }
+      #pump {
+        position: absolute;
+        left: 300px;
+        top: 640px;
+        width: 480px;
+        height: 640px;
+      }
+      #pump-body {
+        position: absolute;
+        left: 40px;
+        top: 60px;
+        width: 300px;
+        height: 560px;
+        background: var(--red);
+        border-radius: 34px 34px 18px 18px;
+        box-shadow:
+          inset -18px 0 0 rgba(0, 0, 0, 0.18),
+          0 30px 60px rgba(0, 0, 0, 0.45);
+      }
+      #pump-cap {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        width: 340px;
+        height: 70px;
+        background: #ffffff;
+        border-radius: 24px;
+      }
+      #pump-display {
+        position: absolute;
+        left: 74px;
+        top: 130px;
+        width: 232px;
+        height: 132px;
+        background: var(--navy);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        overflow: hidden;
+        border: 6px solid #fff;
+      }
+      .rs {
+        font-family: "Anton", sans-serif;
+        color: var(--yellow);
+        font-size: 44px;
+        margin-right: 6px;
+      }
+      .reel {
+        width: 44px;
+        height: 96px;
+        overflow: hidden;
+        position: relative;
+      }
+      .strip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 44px;
+      }
+      .strip div {
+        height: 96px;
+        line-height: 96px;
+        text-align: center;
+        font-family: "Anton", sans-serif;
+        font-size: 82px;
+        color: #ff5a4f;
+      }
+      #pump-drop {
+        position: absolute;
+        left: 150px;
+        top: 330px;
+        width: 80px;
+        height: 110px;
+      }
+      #pump-hose {
+        position: absolute;
+        left: 300px;
+        top: 160px;
+        width: 180px;
+        height: 420px;
+      }
+      #wallet {
+        position: absolute;
+        left: 290px;
+        top: 700px;
+        width: 500px;
+        height: 520px;
+      }
+      #wallet-back {
+        position: absolute;
+        left: 0;
+        top: 170px;
+        width: 500px;
+        height: 330px;
+        background: #8a4b22;
+        border-radius: 40px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+      }
+      #wallet-flap {
+        position: absolute;
+        left: 0;
+        top: 120px;
+        width: 500px;
+        height: 170px;
+        background: #a85e2c;
+        border-radius: 40px 40px 26px 26px;
+        transform-origin: 50% 100%;
+      }
+      #wallet-clasp {
+        position: absolute;
+        left: 215px;
+        top: 240px;
+        width: 70px;
+        height: 50px;
+        background: var(--yellow);
+        border-radius: 14px;
+      }
+      .eye {
+        position: absolute;
+        top: 330px;
+        width: 92px;
+        height: 92px;
+        background: #fff;
+        border-radius: 50%;
+      }
+      #eye-l {
+        left: 120px;
+      }
+      #eye-r {
+        left: 288px;
+      }
+      .pupil {
+        position: absolute;
+        left: 30px;
+        top: 34px;
+        width: 40px;
+        height: 40px;
+        background: var(--navy);
+        border-radius: 50%;
+      }
+      .tear {
+        position: absolute;
+        top: 400px;
+        width: 34px;
+        height: 48px;
+        background: #63c7ff;
+        border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+        opacity: 0;
+      }
+      #tear-l {
+        left: 150px;
+      }
+      #tear-r {
+        left: 318px;
+      }
+      #moth {
+        position: absolute;
+        left: 470px;
+        top: 860px;
+        width: 140px;
+        height: 110px;
+        opacity: 0;
+      }
+
+      /* ---------- glitch ---------- */
+      .gbar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        mix-blend-mode: screen;
+      }
+
+      /* ---------- confetti ---------- */
+      #confetti {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .cf {
+        position: absolute;
+        top: -60px;
+        width: 22px;
+        height: 34px;
+        border-radius: 4px;
+      }
+
+      /* ---------- select-your-style HUD ---------- */
+      #hud-head {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 270px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #hud-title {
+        font-family: "Anton", sans-serif;
+        font-size: 92px;
+        color: #fff;
+        text-transform: uppercase;
+        background: rgba(11, 18, 48, 0.82);
+        padding: 8px 26px 12px;
+        border-left: 14px solid var(--yellow);
+      }
+      .p1 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 40px;
+        color: var(--ink);
+        background: var(--yellow);
+        padding: 6px 16px 4px;
+        letter-spacing: 2px;
+      }
+      .card {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 860px;
+        background: rgba(11, 18, 48, 0.86);
+        border: 6px solid var(--yellow);
+        border-radius: 30px;
+        padding: 30px 40px 34px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      .card h3 {
+        margin: 0;
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-size: 104px;
+        line-height: 1.05;
+        color: #fff;
+        text-transform: uppercase;
+      }
+      .card p {
+        margin: 4px 0 22px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 48px;
+        color: var(--yellow);
+      }
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        margin-top: 14px;
+      }
+      .stat label {
+        width: 270px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 44px;
+        color: #fff;
+        letter-spacing: 1px;
+      }
+      .track {
+        position: relative;
+        flex: 1;
+        height: 34px;
+        background: rgba(255, 255, 255, 0.16);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, #39d07a, var(--yellow));
+        transform-origin: left center;
+      }
+      .max {
+        font-family: "Anton", sans-serif;
+        font-size: 44px;
+        color: var(--yellow);
+        width: 90px;
+      }
+      .badge {
+        position: absolute;
+        right: 40px;
+        top: -40px;
+        font-family: "Anton", sans-serif;
+        font-size: 50px;
+        color: var(--ink);
+        background: #39d07a;
+        padding: 6px 22px 8px;
+        border-radius: 14px;
+        transform: rotate(6deg);
+      }
+
+      /* ---------- colour dots ---------- */
+      #dots {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 1140px;
+        display: flex;
+        justify-content: center;
+        gap: 26px;
+      }
+      .dot {
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        border: 8px solid #fff;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+      }
+
+      /* ---------- stamps ---------- */
+      .stamp {
+        position: absolute;
+        font-family: "Anton", sans-serif;
+        color: var(--green);
+        background: rgba(255, 255, 255, 0.92);
+        border: 12px solid var(--green);
+        border-radius: 20px;
+        padding: 8px 34px 14px;
+        text-transform: uppercase;
+        line-height: 1;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+      #st1 {
+        left: 110px;
+        top: 440px;
+        font-size: 132px;
+      }
+      #st2 {
+        left: 90px;
+        top: 1040px;
+        font-size: 96px;
+      }
+
+      /* ---------- benefit chips ---------- */
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 999px;
+        padding: 14px 40px 14px 16px;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+      }
+      .chip .ic {
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        background: var(--blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chip .ic svg {
+        width: 64px;
+        height: 64px;
+      }
+      .chip span {
+        font-family: "Anton", sans-serif;
+        font-size: 72px;
+        color: var(--ink);
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      /* ---------- nosy neighbour ---------- */
+      #peek {
+        position: absolute;
+        right: -40px;
+        top: 560px;
+        width: 330px;
+        height: 260px;
+      }
+      #peek-head {
+        position: absolute;
+        right: 0;
+        top: 30px;
+        width: 300px;
+        height: 230px;
+        background: #f2b48a;
+        border-radius: 150px 0 0 150px;
+        box-shadow: inset 0 -12px 0 rgba(0, 0, 0, 0.08);
+      }
+      #peek-hair {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 300px;
+        height: 90px;
+        background: #3b2414;
+        border-radius: 150px 0 0 40px;
+      }
+      .peye {
+        position: absolute;
+        top: 110px;
+        width: 70px;
+        height: 70px;
+        background: #fff;
+        border-radius: 50%;
+      }
+      #pe1 {
+        left: 50px;
+      }
+      #pe2 {
+        left: 140px;
+      }
+      .ppu {
+        position: absolute;
+        left: 8px;
+        top: 20px;
+        width: 30px;
+        height: 30px;
+        background: var(--navy);
+        border-radius: 50%;
+      }
+      #bubble {
+        position: absolute;
+        right: 220px;
+        top: 440px;
+        font-family: "Anton", sans-serif;
+        font-size: 70px;
+        color: var(--ink);
+        background: #fff;
+        padding: 14px 30px 18px;
+        border-radius: 40px;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      /* ---------- phone notifications ---------- */
+      #dim {
+        position: absolute;
+        inset: 0;
+        background: rgba(5, 10, 30, 0.55);
+      }
+      .notif {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        display: flex;
+        gap: 26px;
+        align-items: center;
+        background: rgba(248, 249, 252, 0.97);
+        border-radius: 38px;
+        padding: 28px 34px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      #n1 {
+        top: 330px;
+      }
+      #n2 {
+        top: 590px;
+      }
+      .napp {
+        width: 120px;
+        height: 120px;
+        flex: none;
+        border-radius: 28px;
+        background: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .napp svg {
+        width: 74px;
+        height: 74px;
+      }
+      .ntxt b {
+        display: block;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 44px;
+        color: #222;
+        letter-spacing: 1px;
+      }
+      .ntxt b em {
+        font-style: normal;
+        font-weight: 700;
+        color: #777;
+        font-size: 36px;
+        margin-left: 12px;
+      }
+      .ntxt span {
+        display: block;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 54px;
+        color: #111;
+        margin-top: 4px;
+      }
+      #seen {
+        position: absolute;
+        right: 90px;
+        top: 836px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 44px;
+        color: #fff;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+      }
+      #seen i {
+        font-style: normal;
+        color: #4fc3ff;
+      }
+
+      /* ---------- address pin ---------- */
+      #pin {
+        position: absolute;
+        left: 470px;
+        top: 640px;
+        width: 140px;
+        height: 190px;
+      }
+
+      /* ---------- CTA panel ---------- */
+      #panel {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(15, 39, 128, 0.5) 0%,
+          rgba(12, 30, 100, 0.88) 26%,
+          rgba(12, 30, 100, 0.88) 72%,
+          rgba(15, 39, 128, 0.5) 100%
+        );
+      }
+      #cta {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 430px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 34px;
+      }
+      #wa {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        background: var(--wa);
+        color: #fff;
+        padding: 20px 44px 20px 28px;
+        border-radius: 999px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      }
+      #wa svg {
+        width: 104px;
+        height: 104px;
+      }
+      #wa span {
+        font-family: "Anton", sans-serif;
+        font-size: 120px;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+      .pill {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 62px;
+        padding: 12px 30px 10px;
+      }
+      #bio {
+        color: var(--ink);
+        background: var(--yellow);
+        text-transform: uppercase;
+      }
+      #bio svg {
+        width: 48px;
+        height: 48px;
+      }
+      #ig {
+        color: var(--ink);
+        background: #fff;
+        border-radius: 16px;
+      }
+      #ig svg {
+        width: 58px;
+        height: 58px;
+      }
+
+      /* ---------- final ---------- */
+      #foot {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 1330px;
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      #foot div {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 40px;
+        color: var(--ink);
+        background: #fff;
+        padding: 8px 18px 6px;
+        border-radius: 12px;
+      }
+      #foot div.fwa {
+        background: var(--wa);
+        color: #fff;
+      }
+    </style>
+    <style>
+      /* ---- ad overrides ---- */
+      #hook {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 860px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      #hook .bar span {
+        font-size: 132px;
+      }
+      #hook .bar.sm span {
+        font-size: 92px;
+      }
+      #st1 {
+        left: 90px;
+        top: 300px;
+        font-size: 104px;
+      }
+      #st2 {
+        left: 150px;
+        top: 1080px;
+        font-size: 96px;
+      }
+      #st3 {
+        left: 60px;
+        top: 690px;
+        font-size: 96px;
+      }
+      #addr {
+        color: var(--ink);
+        background: #fff;
+        border-radius: 16px;
+      }
+      #addr svg {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1080"
+      data-height="1920"
+      data-duration="20"
+    >
+      <div id="cam">
+        <video
+          id="base"
+          class="clip"
+          src="assets/base.mp4"
+          data-start="0"
+          data-duration="20"
+          data-track-index="0"
+          muted
+          playsinline
+        ></video>
+      </div>
+      <audio
+        id="mix"
+        src="assets/mix.wav"
+        data-start="0"
+        data-duration="20"
+        data-track-index="1"
+      ></audio>
+
+      <div id="scrim" class="layer clip" data-start="0" data-duration="20" data-track-index="4">
+        <div class="scrim"></div>
+      </div>
+
+      <!-- 0–2.043  HOOK (visible from frame 0) -->
+      <div id="s1" class="layer clip" data-start="0" data-duration="2.043" data-track-index="5">
+        <div id="hook">
+          <div class="bar w sm" id="h1"><span>Essa moto</span></div>
+          <div class="bar y" id="h2"><span>não precisa</span></div>
+          <div class="bar y" id="h3"><span>de CNH 🤯</span></div>
+        </div>
+      </div>
+
+      <!-- 2.043–4.597  proof stamps on the CONTRAN plate -->
+      <div id="s2" class="layer clip" data-start="2.043" data-duration="2.554" data-track-index="5">
+        <div class="stamp" id="st1">✓ Sem CNH</div>
+        <div class="stamp" id="st3">✓ Sem gasolina</div>
+        <div class="stamp" id="st2">✓ Sem placa</div>
+      </div>
+
+      <!-- 4.597–6.9  benefits -->
+      <div id="s3" class="layer clip" data-start="4.597" data-duration="2.3" data-track-index="5">
+        <div class="stack" style="top: 800px; gap: 30px">
+          <div class="chip" id="c1">
+            <div class="ic">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M8 2v5M16 2v5M5 7h14v4a7 7 0 0 1-14 0zM12 18v4"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <span>Carrega na tomada</span>
+          </div>
+          <div class="chip" id="c2">
+            <div class="ic">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.5 2.5-2.3-.5-.5-2.3z"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <span>Manutenção simples</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6.9–8.682  e cor? -->
+      <div id="s4" class="layer clip" data-start="6.9" data-duration="1.782" data-track-index="5">
+        <div class="stack center" style="top: 760px">
+          <div class="bar w xl" id="s4-a"><span>E cor?</span></div>
+          <div class="bar y sm" id="s4-b"><span>Tem pra todo gosto</span></div>
+        </div>
+        <div id="dots">
+          <div class="dot" id="d1" style="background: #f4f6f8"></div>
+          <div class="dot" id="d2" style="background: #16181d"></div>
+          <div class="dot" id="d3" style="background: #c8102e"></div>
+          <div class="dot" id="d4" style="background: #1d6b3a"></div>
+          <div class="dot" id="d5" style="background: #1b3fb4"></div>
+          <div class="dot" id="d6" style="background: #bfe3f2"></div>
+        </div>
+      </div>
+
+      <!-- 8.682–11.746  o posto ex -->
+      <div id="s5" class="layer clip" data-start="8.682" data-duration="3.064" data-track-index="5">
+        <div id="dim"></div>
+        <div class="notif" id="n1">
+          <div class="napp">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M5 3h9v18H5zM7 6h5v4H7zM16 7l3 3v8a1.5 1.5 0 0 1-3 0v-4h-2"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="ntxt">
+            <b>POSTO DE GASOLINA<em>agora</em></b
+            ><span>Sumiu? Tô com saudade 💔</span>
+          </div>
+        </div>
+        <div class="notif" id="n2">
+          <div class="napp">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M5 3h9v18H5zM7 6h5v4H7zM16 7l3 3v8a1.5 1.5 0 0 1-3 0v-4h-2"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="ntxt">
+            <b>POSTO DE GASOLINA<em>agora</em></b
+            ><span>Volta pra mim? 🥺</span>
+          </div>
+        </div>
+        <div id="seen">Visualizado <i>✓✓</i></div>
+        <div class="stack center" style="top: 1000px">
+          <div class="bar y xl" id="s5-a"><span>Vácuo! 😂</span></div>
+        </div>
+      </div>
+
+      <!-- 11.746–14.81  ME016 + test drive -->
+      <div
+        id="s6"
+        class="layer clip"
+        data-start="11.746"
+        data-duration="3.064"
+        data-track-index="5"
+      >
+        <div class="stack center" id="s6-ina" style="top: 820px">
+          <span class="tag" id="s6-tag">ME016 · Mobilidade Elétrica</span>
+          <div class="bar y" id="s6-a"><span>Inaugurou!</span></div>
+        </div>
+        <div class="stack center" style="top: 800px">
+          <div class="bar b" id="s6-b"><span>Vem fazer seu</span></div>
+          <div class="bar y xl" id="s6-c"><span>Test drive!</span></div>
+        </div>
+      </div>
+
+      <!-- 14.81–16.854  endereço -->
+      <div id="s7" class="layer clip" data-start="14.81" data-duration="2.044" data-track-index="5">
+        <svg id="pin" viewBox="0 0 24 32" aria-hidden="true">
+          <path
+            d="M12 1C6 1 1.5 5.5 1.5 11.3 1.5 19 12 31 12 31s10.5-12 10.5-19.7C22.5 5.5 18 1 12 1z"
+            fill="#e5322d"
+            stroke="#fff"
+            stroke-width="1.4"
+          />
+          <circle cx="12" cy="11.3" r="4" fill="#fff" />
+        </svg>
+        <div class="stack center" style="top: 880px">
+          <div class="bar w" id="s7-a"><span>Av. Luzitana, 552</span></div>
+        </div>
+      </div>
+
+      <!-- 16.854–20  WhatsApp end card (last frame = full contact info) -->
+      <div
+        id="s8"
+        class="layer clip"
+        data-start="16.854"
+        data-duration="3.146"
+        data-track-index="5"
+      >
+        <div id="panel"></div>
+        <div id="cta">
+          <div class="big" id="cta-lead" style="font-size: 110px">Chama no</div>
+          <div id="wa">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path
+                fill="#fff"
+                d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3.3 29l6.5-1.7c1.9 1 4 1.6 6.2 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.5c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.7-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.8 0-5.9 4.9-10.7 10.9-10.7s10.9 4.8 10.9 10.7S22 26.5 16 26.5zm6-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.6 4.9 2.8 1.1 3.3.9 3.9.8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"
+              />
+            </svg>
+            <span>WhatsApp</span>
+          </div>
+          <div class="pill" id="bio">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 4l-7 7h4.5v9h5v-9H19z" fill="#0b1230" />
+            </svg>
+            <span>Link na bio</span>
+          </div>
+          <div class="pill" id="ig">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="5"
+                fill="none"
+                stroke="#0b1230"
+                stroke-width="2.2"
+              />
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="#0b1230" stroke-width="2.2" />
+              <circle cx="17.3" cy="6.7" r="1.3" fill="#0b1230" />
+            </svg>
+            <span>@me016multimarcas</span>
+          </div>
+          <div class="pill" id="addr">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"
+                fill="#1b3fb4"
+              />
+            </svg>
+            <span>Av. Luzitana, 552</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="flash"></div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const IN = "power4.out";
+      const OUT = "power3.in";
+      const seen = new Set();
+      function T(sel, from, to, at) {
+        const opts = Object.assign({}, to);
+        if (seen.has(sel)) opts.immediateRender = false;
+        seen.add(sel);
+        tl.fromTo(sel, from, opts, at);
+      }
+      function barIn(sel, at) {
+        T(sel, { scaleX: 0, skewX: -8 }, { scaleX: 1, skewX: -8, duration: 0.3, ease: IN }, at);
+        T(`${sel} span`, { opacity: 0 }, { opacity: 1, duration: 0.2 }, at + 0.06);
+      }
+      function slam(sel, at, s = 2.2) {
+        T(
+          sel,
+          { scale: s, skewX: -8, opacity: 0 },
+          { scale: 1, skewX: -8, opacity: 1, duration: 0.3, ease: "back.out(1.6)" },
+          at,
+        );
+      }
+
+      // camera punch on every cut (beat grid from the drop at 0.0)
+      const cuts = [
+        2.043, 4.597, 5.108, 5.619, 6.13, 6.64, 7.151, 7.662, 8.173, 8.682, 11.746, 12.768, 13.789,
+        14.81, 16.854,
+      ];
+      T("#cam", { scale: 1, x: 0 }, { scale: 1, x: 0, duration: 0.01 }, 0);
+      cuts.forEach((t) =>
+        T("#cam", { scale: 1.07 }, { scale: 1, duration: 0.4, ease: "power3.out" }, t),
+      );
+      T("#cam", { scale: 1.06 }, { scale: 1, duration: 0.45, ease: "power3.out" }, 1.0);
+      T("#cam", { scale: 1.08 }, { scale: 1, duration: 0.5, ease: "power3.out" }, 19.41);
+
+      T("#flash", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+      T("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, ease: "power2.out" }, 1.0);
+      T("#flash", { opacity: 0.6 }, { opacity: 0, duration: 0.35, ease: "power2.out" }, 13.789);
+      T("#flash", { opacity: 0.4 }, { opacity: 0, duration: 0.45, ease: "power2.out" }, 19.41);
+
+      // 1) HOOK — fully legible on frame 0, then punches on the panel ignition
+      T("#h1", { skewX: -8 }, { skewX: -8, duration: 0.01 }, 0);
+      T("#h2", { skewX: -8 }, { skewX: -8, duration: 0.01 }, 0);
+      T("#h3", { skewX: -8 }, { skewX: -8, duration: 0.01 }, 0);
+      T(
+        "#hook",
+        { scale: 1 },
+        { scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out" },
+        1.0,
+      );
+      T(
+        "#h3",
+        { rotation: 0 },
+        { rotation: -3, duration: 0.08, yoyo: true, repeat: 5, ease: "none" },
+        1.15,
+      );
+
+      // 2) proof stamps on "CNH / emplacamento / gasolina"
+      T(
+        "#st1",
+        { scale: 3, rotation: -9, opacity: 0 },
+        { scale: 1, rotation: -9, opacity: 1, duration: 0.2, ease: "power4.in" },
+        2.08,
+      );
+      T(
+        "#st2",
+        { scale: 3, rotation: 5, opacity: 0 },
+        { scale: 1, rotation: 5, opacity: 1, duration: 0.2, ease: "power4.in" },
+        2.63,
+      );
+      T(
+        "#st3",
+        { scale: 3, rotation: -4, opacity: 0 },
+        { scale: 1, rotation: -4, opacity: 1, duration: 0.2, ease: "power4.in" },
+        3.18,
+      );
+      [2.1, 2.65, 3.2].forEach((t) =>
+        T("#cam", { x: -16 }, { x: 0, duration: 0.3, ease: "elastic.out(1, 0.3)" }, t),
+      );
+
+      // 3) benefits
+      T("#c1", { x: -1000 }, { x: 0, duration: 0.35, ease: "back.out(1.3)" }, 4.6);
+      T("#c2", { x: -1000 }, { x: 0, duration: 0.35, ease: "back.out(1.3)" }, 5.62);
+
+      // 4) e cor?
+      slam("#s4-a", 6.92, 2.2);
+      barIn("#s4-b", 7.6);
+      [7.15, 7.4, 7.66, 7.91, 8.17, 8.4].forEach((t, i) =>
+        T(`#d${i + 1}`, { scale: 0 }, { scale: 1, duration: 0.25, ease: "back.out(3)" }, t),
+      );
+
+      // 5) posto ex
+      T("#dim", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 8.7);
+      T("#n1", { y: -500 }, { y: 0, duration: 0.4, ease: "back.out(1.4)" }, 8.85);
+      T("#n2", { y: -760 }, { y: 0, duration: 0.4, ease: "back.out(1.4)" }, 9.9);
+      T("#seen", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.2 }, 10.6);
+      slam("#s5-a", 11.0, 2.4);
+
+      // 6) ME016 inaugurou -> test drive
+      T("#s6-tag", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: IN }, 11.8);
+      slam("#s6-a", 12.0, 2.0);
+      tl.to("#s6-ina", { opacity: 0, duration: 0.12 }, 13.2);
+      barIn("#s6-b", 13.3);
+      slam("#s6-c", 13.79, 2.4);
+
+      // 7) address
+      T("#pin", { y: -900 }, { y: 0, duration: 0.45, ease: "bounce.out" }, 14.82);
+      slam("#s7-a", 15.05, 1.8);
+
+      // 8) WhatsApp end card
+      T("#panel", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 16.9);
+      T("#cta-lead", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: IN }, 17.5);
+      T(
+        "#wa",
+        { scale: 0.3, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" },
+        17.85,
+      );
+      T("#bio", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: IN }, 18.35);
+      T("#ig", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: IN }, 18.6);
+      T("#addr", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: IN }, 18.85);
+      T(
+        "#wa",
+        { scale: 1 },
+        { scale: 1.07, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut" },
+        19.41,
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
