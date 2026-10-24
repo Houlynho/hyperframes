@@ -52,3 +52,5 @@ registry/examples/warm-grain/compositions/captions.html
 .agents/skills/taste-skill/
 .claude/skills/web-design-guidelines/
 .agents/skills/web-design-guidelines/
+.claude/skills/image-to-code/
+.agents/skills/image-to-code/

@@ -11,6 +11,10 @@ These are the five tools recommended in a reel the user saved (by @viniciusguima
 They are third-party. **Install them only with the user's go-ahead.** Read each skill's
 files before first use, since installed skills run with full agent permissions.
 
+**Installed in this repo** (vendored unmodified, MIT, user-approved): `taste-skill`
+(1), `web-design-guidelines` (2) and `image-to-code` (4), under `.claude/skills/` and
+`.agents/skills/`. Tools 3 and 5 are not installed.
+
 ## The loop
 
 Use them in this order on any UI job:
@@ -53,13 +57,17 @@ Use them in this order on any UI job:
 
 ## 4. Image to Code
 
-- **What it does:** take a screenshot of a design you like (Pinterest, Dribbble, a
-  real site) and the agent rebuilds it as code.
-- **Source:** a GitHub project shown as "Image To Code" in the reel. **Exact repo not
-  yet confirmed.** Ask the user, or check the reel creator's list (comment
-  "DESIGN" on the reel), before installing anything under this name.
-- **Until confirmed:** Claude can already read an attached screenshot and rebuild it.
-  Pair that with tool 5 to compare the result against the original.
+- **What it does:** an image-first website workflow. It generates (or takes) large
+  per-section design images, analyses them in depth, then implements the site to
+  match them as closely as possible. It is from the same author family as Taste
+  Skill.
+- **Source:** `image-to-code-skill` in `tasteskill/tasteskill` @ 37c8c37. The reel only
+  showed "GitHub · Image To Code", so this match is the most-installed skill of
+  that name by the Taste Skill author, not a confirmed link from the reel.
+- **Installed as:** `image-to-code`.
+- **Note:** it is written for Codex with an image generator. With a screenshot the
+  user supplies, skip its generation step and start from the analysis. Pair it with
+  tool 5 to compare the build against the image.
 
 ## 5. Playwright CLI
 

@@ -131,6 +131,7 @@ packages/studio/data/
 !.claude/skills/design-toolkit
 !.claude/skills/taste-skill
 !.claude/skills/web-design-guidelines
+!.claude/skills/image-to-code
 
 .agents/*
 !.agents/skills
@@ -147,6 +148,7 @@ packages/studio/data/
 !.agents/skills/design-toolkit
 !.agents/skills/taste-skill
 !.agents/skills/web-design-guidelines
+!.agents/skills/image-to-code
 skills-lock.json
 
 # Skills from other PRs (not managed here)
